@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>Appolonia | Video Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;500;600&family=Josefin+Slab&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css" integrity="sha512-yDUXOUWwbHH4ggxueDnC5vJv4tmfySpVdIcN1LksGZi8W8EVZv4uKGrQc0pVf66zS7LDhFJM7Zdeow1sw1/8Jw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/regular.min.css" integrity="sha512-WidMaWaNmZqjk3gDE6KBFCoDpBz9stTsTZZTeocfq/eDNkLfpakEd7qR0bPejvy/x0iT0dvzIq4IirnBtVer5A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+  <!-- <link rel="stylesheet" href="/css/main.css" /> -->
+
+  <!-- Import SocketIO for signalling -->
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script type="text/javascript">
+
+    const room = "<%= roomId %>"
+
+    function call(){
+     hangup();
+     const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+     let isMobile =  regex.test(navigator.userAgent);
+
+
+      if (isMobile) {
+      console.log("Mobile device detected");
+      document.location= "/call"
+      } else {
+      console.log("Desktop device detected");
+      window.close()
+   }
+     
+      
+
+//window.close();
+//setTimeout("window.close()", 500)
+    }
+   </script>
+   <style type="text/javascript">
+   .d-block{
+		display: block;
+
+	}
+	.d-none{
+		display: none;
+	}
+
+  </style>
+</head>
+
+<body class="h-100">
+  
+  <div class="d-block" id="video_display">
+
+    <div id ="video_container" class="align-items-center" style="margin-top: 0;">
+      <div class="local_div d-none" id="div1" 
+      style="position:absolute; bottom:0; right:0; padding-bottom: 0px; padding-top: 0px"
+      >
+     <video id="localVideo" class="" autoplay muted playsinline></video>
+       </div>
+       <div class="remote_div d-block" id="div1_local">
+				<video 
+        style="width: 100vw;height: 83vh;" 
+        id="localvideo_max" class="" autoplay playsinline></video>
+        
+			</div>
+			<div class="remote_div d-none" id="div2">
+				<video 
+        style="width: 100vw;height: 83vh;" 
+        id="remoteVideo" class="" autoplay playsinline></video>
+        
+			</div>
+      <div>
+      <div class="controls" 
+      
+      >
+        <!-- <button class="button" id="toggle-cam">Hide cam</button>
+        <button class="button" id="audio-button">Unmute</button> -->
+       
+       <button id="toggle-cam" class="d-block"><i class="fa-solid fa-video"  style="font-size: 22px;" ></i></button> 
+       <button id="toggle-off" class="d-none"><i class="fa-solid fa-video-slash"  style="font-size: 22px;"></i></button>
+       <button id="audio-button" class="d-block"> <i class="fa-solid fa-microphone" style="font-size: 22px;"></i></button>
+       <button id="audio-off" class="d-none"><i class="fa-solid fa-microphone-slash" style="font-size: 22px;"></i></button>
+      
+       <button style="background-color:   rgb(234,67,53);"><i class="bi bi-telephone-x-fill" onclick="call()" style="font-size: 22px;
+       "></i></button>
+     
+    </div>
+    </div>
+    </div>
+
+  </div>
+   
+  <div class="d-none" id="stop" >
+    <div style="display: flex;align-items:center;justify-content:center;">
+  <h1>You will be redirected to appointments page.</h1> 
+   </div>
+
+  </div>
+   
+
+  
+  
+    <!-- <div class="box">
+      <button id="startButton">Start</button>
+      <button id="callButton">Call</button>
+      <button onclick="handleRemoteHangup()" id="hangupButton">Hang Up</button>
+  </div> -->
+
+
+  
+
+  
+  <!-- <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script> -->
+
+  <!-- Import WebRTC adapter for compatibility with all the browsers  -->
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  
+  <!-- Import TURN config -->
+  <script src="js\config.js"></script>
+
+  <!-- Import script containing WebRTC related functions -->
+  <script src="js\main.js"></script>
+  
+</body>
+
+</html>
